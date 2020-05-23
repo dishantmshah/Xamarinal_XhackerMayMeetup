@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xaminals.Views.MonkeyDetailPage"
+             xmlns:icons="clr-namespace:Xaminals.Common"
+             x:Name="self"
+             Title="Monkey Details">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"
+                            BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
+                            IconOverride="back.png" />
+    </Shell.BackButtonBehavior>
+
+    <ScrollView>
+        <StackLayout Margin="20">
+            <Label Text="{Binding Name}"
+                   HorizontalOptions="Center"
+                   Style="{DynamicResource TitleStyle}" />
+            <Label Text="{Binding Location}"
+                   FontAttributes="Italic"
+                   HorizontalOptions="Center" />
+            <Image Source="{Binding ImageUrl}"
+                   HeightRequest="200"
+                   WidthRequest="200"
+                   HorizontalOptions="CenterAndExpand" />
+
+            <!--<Label Text="{Binding Details}"
+                   Style="{DynamicResource BodyStyle}" />-->
+
+            <Expander>
+                <Expander.Header>
+                    <Grid>
+                        <Label Text="View Info"
+                               TextColor="CadetBlue" />
+                        <Image HorizontalOptions="End"
+                               VerticalOptions="Start">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FontAwesome"
+                                                 Glyph="{x:Static icons:IconFont.ArrowDown}"
+                                                 Color="Green"
+                                                 Size="20" />
+                            </Image.Source>
+                            <Image.Triggers>
+                                <DataTrigger TargetType="Image"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                             Value="True">
+                                    <Setter Property="Source">
+                                        <FontImageSource FontFamily="FontAwesome"
+                                                         Glyph="{x:Static icons:IconFont.ArrowUp}"
+                                                         Color="Green"
+                                                         Size="20" />
+                                    </Setter>
+
+                                </DataTrigger>
+                            </Image.Triggers>
+                        </Image>
+                    </Grid>
+                </Expander.Header>
+
+                <Label Text="{Binding Details}"
+                       Style="{DynamicResource BodyStyle}" />
+            </Expander>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
